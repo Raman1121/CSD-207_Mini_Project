@@ -22,7 +22,7 @@ import com.github.sarxos.webcam.WebcamResolution;
 
 
 @SuppressWarnings("serial")
-public class TakeSnapshotFromVideoExample extends JFrame {
+public class TakeSnapshotFromVideo extends JFrame {
 
 	private class SnapMeAction extends AbstractAction {
 
@@ -57,11 +57,6 @@ public class TakeSnapshotFromVideoExample extends JFrame {
 
 			btStart.setEnabled(false);
 			btSnapMe.setEnabled(true);
-
-			// remember to start panel asynchronously - otherwise GUI will be
-			// blocked while OS is opening webcam HW (will have to wait for
-			// webcam to be ready) and this causes GUI to hang, stop responding
-			// and repainting
 
 			executor.execute(this);
 		}
@@ -107,7 +102,7 @@ public class TakeSnapshotFromVideoExample extends JFrame {
 	private JButton btStart = new JButton(new StartAction());
 	private JButton btStop = new JButton(new StopAction());
 
-	public TakeSnapshotFromVideoExample() {
+	public TakeSnapshotFromVideo() {
 
 		super("Test Snap Different Size");
 
@@ -118,9 +113,6 @@ public class TakeSnapshotFromVideoExample extends JFrame {
 			panel.setFillArea(true);
 			panels.add(panel);
 		}
-
-		// start application with disable snapshot button - we enable it when
-		// webcam is started
 
 		btSnapMe.setEnabled(false);
 		btStop.setEnabled(false);
@@ -141,6 +133,6 @@ public class TakeSnapshotFromVideoExample extends JFrame {
 	}
 
 	public static void main(String[] args) {
-		new TakeSnapshotFromVideoExample();
+		new TakeSnapshotFromVideo();
 	}
 }
