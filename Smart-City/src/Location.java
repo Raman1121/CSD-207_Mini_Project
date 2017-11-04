@@ -7,8 +7,11 @@ import com.maxmind.db.NodeCache;
 import com.maxmind.geoip2.DatabaseReader;
 import com.maxmind.geoip2.model.InsightsResponse;
 
+import java.io.InputStreamReader;
 import java.net.InetAddress;
+import java.net.URL;
 import java.net.UnknownHostException;
+import java.io.BufferedReader;
 
 public class Location {
     private double latitude;
@@ -40,7 +43,7 @@ public class Location {
     public static Location getLocation() throws IOException{
         Location currentLocation = null;
         try(WebServiceClient client = new WebServiceClient.Builder(128415,licenseKey).build()){
-            InetAddress ipAddress = InetAddress.getByName("103.27.164.38");
+            InetAddress ipAddress = InetAddress.getByName(getIpAddress());
             CityResponse response = client.city(ipAddress);
             com.maxmind.geoip2.record.Location location = response.getLocation();
             double latitude = location.getLatitude();
@@ -54,15 +57,17 @@ public class Location {
         return currentLocation;
     }
 
-    public static InetAddress getIpAddress(){
-        InetAddress ipAddress = null;
+    public static String getIpAddress(){
+        String ipAddress = "";
         try{
-            ipAddress = InetAddress.getLocalHost();
+            URL ipUrl = new URL("http://bot.whatismyipaddress.com");
+            BufferedReader buffer = new BufferedReader(new InputStreamReader(ipUrl.openStream()));
+            ipAddress = buffer.readLine().trim();
         }
-        catch(UnknownHostException e){
-            System.out.println("Exception Location.java"+e);
+        catch(IOException e){
+            System.out.println("Exception Location.java" + e);
         }
-        System.out.println(ipAddress.toString());
+        System.out.println(ipAddress);
         return ipAddress;
     }
 }
