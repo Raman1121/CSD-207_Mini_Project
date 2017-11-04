@@ -1,7 +1,8 @@
 <component name="libraryTable">
   <library name="geoip2-2.10.0">
     <CLASSES>
-      <root url="jar://$USER_HOME$/Desktop/geoip2-2.10.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/geoip2-2.10.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/google-places-api-java.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />

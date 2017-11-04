@@ -36,7 +36,7 @@ public class TakeSnapshotFromVideo extends JFrame {
                 for (int i = 0; i < webcams.size(); i++) {
                     Webcam webcam = webcams.get(i);
                     String timeStamp = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new Timestamp(System.currentTimeMillis()));
-                    File file = new File("img/test"+timeStamp+".jpg");
+                    File file = new File("images/test"+timeStamp+".jpg");
                     ImageIO.write(webcam.getImage(), "JPG", file);
                     System.out.format("Image for %s saved in %s \n", webcam.getName(), file);
                 }

@@ -18,7 +18,7 @@ public abstract class Bots {
     }
 
     public void capturePicture(){
-        //Integrate webcam java files
+
     }
 
     public void assignBot(int type){

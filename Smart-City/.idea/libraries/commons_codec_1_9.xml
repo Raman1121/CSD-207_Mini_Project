@@ -1,9 +1,21 @@
 <component name="libraryTable">
   <library name="commons-codec-1.9">
     <CLASSES>
-      <root url="jar://$USER_HOME$/Desktop/geoip2-2.10.0/lib/commons-codec-1.9.jar!/" />
+      <root url="jar://$PROJECT_DIR$/geoip2-2.10.0/lib/commons-codec-1.9.jar!/" />
+      <root url="jar://$PROJECT_DIR$/geoip2-2.10.0/lib/commons-logging-1.2.jar!/" />
+      <root url="jar://$PROJECT_DIR$/geoip2-2.10.0/lib/geoip2-2.10.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/geoip2-2.10.0/lib/httpclient-4.5.3.jar!/" />
+      <root url="jar://$PROJECT_DIR$/geoip2-2.10.0/lib/httpcore-4.4.6.jar!/" />
+      <root url="jar://$PROJECT_DIR$/geoip2-2.10.0/lib/jackson-annotations-2.9.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/geoip2-2.10.0/lib/jackson-core-2.9.2.jar!/" />
+      <root url="jar://$PROJECT_DIR$/geoip2-2.10.0/lib/jackson-databind-2.9.2.jar!/" />
+      <root url="jar://$PROJECT_DIR$/geoip2-2.10.0/lib/maxmind-db-1.2.2.jar!/" />
     </CLASSES>
-    <JAVADOC />
-    <SOURCES />
+    <JAVADOC>
+      <root url="jar://$PROJECT_DIR$/geoip2-2.10.0/lib/geoip2-2.10.0-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$PROJECT_DIR$/geoip2-2.10.0/lib/geoip2-2.10.0-sources.jar!/" />
+    </SOURCES>
   </library>
 </component>
