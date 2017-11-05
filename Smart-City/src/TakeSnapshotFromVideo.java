@@ -132,7 +132,7 @@ public class TakeSnapshotFromVideo extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
-    public static void main(String[] args) {
-        new TakeSnapshotFromVideo();
-    }
+//    public static void main(String[] args) {
+    //    new TakeSnapshotFromVideo();
+  //  }
 }

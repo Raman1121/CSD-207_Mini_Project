@@ -1,3 +1,4 @@
+import java.io.IOException;
 import java.util.Random;
 
 public abstract class Bots {
@@ -18,43 +19,54 @@ public abstract class Bots {
     }
 
     public void capturePicture(){
-
+        new TakeSnapshotFromVideo();
     }
 
-    public void assignBot(int type){
-        String initialId = "";
-        if(type == 1){
-            initialId = "1610110";
-            getBotId(initialId);
-        }
-        else{
-            initialId = "1510110";
-            getBotId(initialId);
-        }
-    }
-
-    public void getBotId(String initialId) {
+    public static void assignBot(int type,User user) throws IOException{
         while (true) {
-                Random random = new Random();
-                int id = random.nextInt(999) + 1;
-                initialId = initialId + id;
-                int finalId = Integer.parseInt(initialId);
-                if (checkId(finalId)) {
-                    continue;
-                } else {
-                    Main.assignedBotIds.add(finalId);
-                    break;
+            Random random = new Random();
+            int finalId = random.nextInt(99999) + 1;
+            if (checkId(finalId)) {
+                continue;
+            } else {
+                Main.assignedBotIds.add(finalId);
+                if(type == TouristBot.touristType){
+                    TouristBot tourist = new TouristBot(type,finalId);
+                    user.setAssignedBot(tourist);
+                    user.setBotId(finalId);
                 }
+                else{
+                    CopBot cop = new CopBot(type,finalId);
+                    user.setAssignedBot(cop);
+                    user.setBotId(finalId);
+                }
+                break;
             }
+        }
     }
 
-    public boolean checkId(int id){
+    public void setCurrentLocation(Location currentLocation){
+        this.currentLocation = currentLocation;
+    }
+
+    public void interact() throws IOException{
+    }
+
+    public static boolean checkId(int id){
         for(int assignedId : Main.assignedBotIds){
             if(assignedId == id){
                 return true;
             }
         }
-        return true;
+        return false;
+    }
+
+    public void setBotType(int type){
+        this.botType = type;
+    }
+
+    public void setBotId(int id){
+        this.botId = id;
     }
 
 }

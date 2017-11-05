@@ -1,26 +1,27 @@
 import com.maxmind.geoip2.WebServiceClient;
 import com.maxmind.geoip2.model.CityResponse;
 
-import java.io.File;
+import java.util.List;
 import java.io.IOException;
-import com.maxmind.db.NodeCache;
-import com.maxmind.geoip2.DatabaseReader;
-import com.maxmind.geoip2.model.InsightsResponse;
+import com.maxmind.geoip2.record.City;
+import se.walkercrou.places.GooglePlaces;
+import se.walkercrou.places.Place;
 
 import java.io.InputStreamReader;
 import java.net.InetAddress;
 import java.net.URL;
-import java.net.UnknownHostException;
 import java.io.BufferedReader;
 
 public class Location {
     private double latitude;
     private double longitude;
+    private String cityName;
     private static String licenseKey = "EOZxoiT22Ix3";
 
-    public Location(double lat,double lon){
+    public Location(double lat,double lon,String name){
         this.latitude = lat;
         this.longitude = lon;
+        this.cityName = name;
     }
 
     public double getLatitude(){
@@ -36,9 +37,12 @@ public class Location {
         return currentLocation;
     }
 
-    /*public static ArrayList<Location> getNearbyRecommendedLocation(){
-
-    }*/
+    public static List<Place> getNearbyRecommendedLocation() throws IOException{
+        GooglePlaces client = new GooglePlaces("AIzaSyC_kPMIXazwobsCXiLXPehQutiBGGWAjH4");
+        Location currentLoc = getCurrentLocation();
+        List<Place> places = client.getNearbyPlaces(currentLoc.getLatitude(),currentLoc.getLongitude(),10000);
+        return places;
+    }
 
     public static Location getLocation() throws IOException{
         Location currentLocation = null;
@@ -46,9 +50,10 @@ public class Location {
             InetAddress ipAddress = InetAddress.getByName(getIpAddress());
             CityResponse response = client.city(ipAddress);
             com.maxmind.geoip2.record.Location location = response.getLocation();
+            City city = response.getCity();
             double latitude = location.getLatitude();
             double longitude = location.getLongitude();
-            currentLocation = new Location(latitude,longitude);
+            currentLocation = new Location(latitude,longitude,city.getName());
 
         }
         catch(com.maxmind.geoip2.exception.GeoIp2Exception e){
@@ -67,7 +72,11 @@ public class Location {
         catch(IOException e){
             System.out.println("Exception Location.java" + e);
         }
-        System.out.println(ipAddress);
         return ipAddress;
     }
+
+    public String getCityName(){
+        return cityName;
+    }
+
 }
