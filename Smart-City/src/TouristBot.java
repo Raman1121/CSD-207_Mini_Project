@@ -12,9 +12,10 @@ public class TouristBot extends Bots {
     public static BufferedReader buffer = new BufferedReader(new InputStreamReader(System.in));
     private  ArrayList<Place> nearbyPlaces  = new ArrayList<Place>();
 
-    public TouristBot(int type,int id) throws IOException{
+    public TouristBot(User user,int type,int id) throws IOException{
         super();
         super.setBotId(id);
+        super.setCurrentUser(user);
         super.setBotType(type);
         super.setCurrentLocation(Location.getCurrentLocation());
     }
@@ -32,6 +33,7 @@ public class TouristBot extends Bots {
             switch (choice) {
                 case 1:
                     Location current = super.getCurrentLocation();
+                    super.getCurrentUser().getPlacesVisited().add(current);
                     System.out.println("Latitude: " + current.getLatitude());
                     System.out.println("Longitude: " + current.getLongitude());
                     break;

@@ -1,6 +1,7 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 import java.util.Random;
 
 public class User {
@@ -10,6 +11,7 @@ public class User {
     private Bots botAssigned;
     private int userId;
     private Location currentLocation;
+    private ArrayList<Location> placesVisited;
 
     private static BufferedReader buffer = new BufferedReader(new InputStreamReader(System.in));
 
@@ -17,10 +19,23 @@ public class User {
         this.name = name;
         this.userId = id;
         this.botType = type;
+        placesVisited = new ArrayList<Location>();
+    }
+
+    public Bots getBot(){
+        return botAssigned;
+    }
+
+    public void setBot(Bots bot){
+        botAssigned = bot;
     }
 
     public String getName(){
         return name;
+    }
+
+    public ArrayList<Location> getPlacesVisited(){
+        return placesVisited;
     }
 
     public int getBotId(){

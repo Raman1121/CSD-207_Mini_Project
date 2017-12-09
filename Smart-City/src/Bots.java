@@ -5,6 +5,16 @@ public abstract class Bots {
     private int botId;
     private int botType;
     private Location currentLocation;
+    private int battery = 100;
+    private User user;
+
+    public int getBattery(){
+        return battery;
+    }
+
+    public void setBattery(int battery){
+        this.battery = battery;
+    }
 
     public int getId(){
         return this.botId;
@@ -12,6 +22,14 @@ public abstract class Bots {
 
     public int getBotType(){
         return this.botType;
+    }
+
+    public User getCurrentUser(){
+        return this.user;
+    }
+
+    public void setCurrentUser(User user){
+        this.user = user;
     }
 
     public Location getCurrentLocation(){
@@ -31,12 +49,12 @@ public abstract class Bots {
             } else {
                 Main.assignedBotIds.add(finalId);
                 if(type == TouristBot.touristType){
-                    TouristBot tourist = new TouristBot(type,finalId);
+                    TouristBot tourist = new TouristBot(user,type,finalId);
                     user.setAssignedBot(tourist);
                     user.setBotId(finalId);
                 }
                 else{
-                    CopBot cop = new CopBot(type,finalId);
+                    CopBot cop = new CopBot(user,type,finalId);
                     user.setAssignedBot(cop);
                     user.setBotId(finalId);
                 }
@@ -49,8 +67,7 @@ public abstract class Bots {
         this.currentLocation = currentLocation;
     }
 
-    public void interact() throws IOException{
-    }
+    public abstract void interact() throws IOException;
 
     public static boolean checkId(int id){
         for(int assignedId : Main.assignedBotIds){

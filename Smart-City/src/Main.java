@@ -11,6 +11,7 @@ public class Main {
     public static ArrayList<User> existingUsers = new ArrayList<User>();
     public static BufferedReader buffer = new BufferedReader(new InputStreamReader(System.in));
     public static void main(String[] args) throws IOException {
+        existingUsers = DB.readData();
         while (true) {
             System.out.println("1. Existing User");
             System.out.println("2. New User");
@@ -41,6 +42,7 @@ public class Main {
                     System.out.println("Select a valid option");
             }
             if(choice1 == 3){
+                DB.writeData(existingUsers);
                 break;
             }
         }
