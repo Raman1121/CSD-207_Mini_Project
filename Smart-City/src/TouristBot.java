@@ -1,23 +1,57 @@
 import se.walkercrou.places.Place;
 import se.walkercrou.places.Review;
 
+import javax.swing.*;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.List;
+import java.sql.Time;
+import java.util.*;
+import java.util.Timer;
 
 public class TouristBot extends Bots {
     public static int touristType = 1;
     public static BufferedReader buffer = new BufferedReader(new InputStreamReader(System.in));
     private  ArrayList<Place> nearbyPlaces  = new ArrayList<Place>();
+    private Timer timer = new Timer();
 
     public TouristBot(User user,int type,int id) throws IOException{
         super();
         super.setBotId(id);
         super.setCurrentUser(user);
         super.setBotType(type);
-        super.setCurrentLocation(Location.getCurrentLocation());
+        try{
+            super.setCurrentLocation(Location.getCurrentLocation());}
+        catch(Exception e)
+        {
+            super.setCurrentLocation(null);
+        }
+        setTimer();
+    }
+
+    private void setTimer(){
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                try {
+                    Random random = new Random();
+                    int val = random.nextInt(50)+1;
+                    if(val > TouristBot.super.getBattery()){
+                        TouristBot.super.setBattery(0);
+                    }
+                    else {
+                        TouristBot.super.setBattery(TouristBot.super.getBattery() - val);
+                    }
+                    System.out.println("Bot " + TouristBot.super.getId() + " Has low battery new bot will be assigned to you");
+                    Main.assignedBotIds.remove(TouristBot.super.getId());
+                    Bots.assignBot(TouristBot.super.getBotType(), TouristBot.super.getUser());
+                    setTimer();
+                }
+                catch(IOException e){
+                    System.out.println("#TouristBot.java IOException "  + e);
+                }
+            }
+        },super.getBattery()*1000);
     }
 
     @Override
@@ -77,6 +111,7 @@ public class TouristBot extends Bots {
         int count = 1;
         for(Place place : nearbyPlaces){
             System.out.println(count + ". " + place.getName());
+            count++;
         }
         System.out.println("Select your option");
         int option;

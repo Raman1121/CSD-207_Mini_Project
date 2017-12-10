@@ -12,6 +12,9 @@ public class Main {
     public static BufferedReader buffer = new BufferedReader(new InputStreamReader(System.in));
     public static void main(String[] args) throws IOException {
         existingUsers = DB.readData();
+        for(User user : existingUsers){
+            assignedBotIds.add(user.getBotId());
+        }
         while (true) {
             System.out.println("1. Existing User");
             System.out.println("2. New User");

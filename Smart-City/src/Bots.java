@@ -20,6 +20,10 @@ public abstract class Bots {
         return this.botId;
     }
 
+    public User getUser(){
+        return user;
+    }
+
     public int getBotType(){
         return this.botType;
     }

@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
+import java.util.concurrent.ThreadLocalRandom;
 
 import javax.imageio.ImageIO;
 import javax.swing.AbstractAction;
@@ -30,13 +31,15 @@ public class TakeSnapshotFromVideo extends JFrame {
             super("Snapshot");
         }
 
-        @Override
+        //  @Override
         public void actionPerformed(ActionEvent e) {
-            try {
+            try { String[] path = {"suspicious","non-suspicious"};
                 for (int i = 0; i < webcams.size(); i++) {
                     Webcam webcam = webcams.get(i);
+                    int randomNum = ThreadLocalRandom.current().nextInt(0, 2);
+                    String random = path[randomNum];
                     String timeStamp = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new Timestamp(System.currentTimeMillis()));
-                    File file = new File("images/test"+timeStamp+".jpg");
+                    File file = new File(random+"/test"+timeStamp+".jpg");
                     ImageIO.write(webcam.getImage(), "JPG", file);
                     System.out.format("Image for %s saved in %s \n", webcam.getName(), file);
                 }
@@ -129,7 +132,7 @@ public class TakeSnapshotFromVideo extends JFrame {
 
         pack();
         setVisible(true);
-        //setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
     public static void main(String[] args) {
